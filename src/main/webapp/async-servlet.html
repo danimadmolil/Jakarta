@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Async Servlet</title>
+</head>
+<body>
+
+USDT : <input  type="text" id="usdt" name="usdt" readonly>
+<button onclick="fetchPrice()">Refresh Price</button>
+
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        fetchPrice()
+    });
+    var xhr = new XMLHttpRequest();
+    const usdbEl = document.getElementById("usdt");
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            usdbEl.value = xhr.responseText;
+        }
+    }
+
+    function fetchPrice(e){
+        xhr.open("GET","/s6/async-servlet")
+        xhr.send();
+    }
+
+</script>
+</html>
